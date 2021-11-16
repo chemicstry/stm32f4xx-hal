@@ -19,7 +19,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - VSCode setting file
 - Add CAN1 PB8/PB9 and SPI3 MOSI PC1 pin mappings for F446 [#421]
+- `Debug` & `defmt::Format` impls for some structures and enums [#385]
 
+[#385]: https://github.com/stm32-rs/stm32f4xx-hal/pull/385
 [#421]: https://github.com/stm32-rs/stm32f4xx-hal/pull/421
 [#422]: https://github.com/stm32-rs/stm32f4xx-hal/pull/422
 [#423]: https://github.com/stm32-rs/stm32f4xx-hal/pull/423
@@ -59,6 +61,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 [#372]: https://github.com/stm32-rs/stm32f4xx-hal/pull/372
 [#373]: https://github.com/stm32-rs/stm32f4xx-hal/pull/373
 [#396]: https://github.com/stm32-rs/stm32f4xx-hal/pull/396
+[#382]: https://github.com/stm32-rs/stm32f4xx-hal/pull/382
+[#380]: https://github.com/stm32-rs/stm32f4xx-hal/pull/380
 [#374]: https://github.com/stm32-rs/stm32f4xx-hal/pull/374
 [#380]: https://github.com/stm32-rs/stm32f4xx-hal/pull/380
 [#381]: https://github.com/stm32-rs/stm32f4xx-hal/pull/381

@@ -88,7 +88,11 @@ impl From<bool> for PinState {
     }
 }
 
+use core::fmt;
+
 /// A filler pin type
+#[derive(Debug)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub struct NoPin;
 
 /// Extension trait to split a GPIO peripheral in independent pins and registers
@@ -142,6 +146,7 @@ pub struct Analog;
 pub type Debugger = Alternate<PushPull, 0>;
 
 /// GPIO Pin speed selection
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum Speed {
     Low = 0,
@@ -150,6 +155,7 @@ pub enum Speed {
     VeryHigh = 3,
 }
 
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum Edge {
     Rising,
@@ -276,6 +282,24 @@ pub struct Pin<MODE, const P: char, const N: u8> {
 impl<MODE, const P: char, const N: u8> Pin<MODE, P, N> {
     const fn new() -> Self {
         Self { _mode: PhantomData }
+    }
+}
+
+impl<MODE, const P: char, const N: u8> fmt::Debug for Pin<MODE, P, N> {
+    fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        formatter.write_fmt(format_args!(
+            "P{}{}<{}>",
+            P,
+            N,
+            crate::stripped_type_name::<MODE>()
+        ))
+    }
+}
+
+#[cfg(feature = "defmt")]
+impl<MODE, const P: char, const N: u8> defmt::Format for Pin<MODE, P, N> {
+    fn format(&self, f: defmt::Formatter) {
+        defmt::write!(f, "P{}{}<{}>", P, N, crate::stripped_type_name::<MODE>());
     }
 }
 
