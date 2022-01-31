@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - reexport `digital::v2::PinState` again [#428]
+- reexport `digital::v2::PinState` again
 - Timer impls with time based on `fugit` moved to `fugit` module, added `Pwm` and `fugit-timer` impls [#423]
 
 ### Fixed
