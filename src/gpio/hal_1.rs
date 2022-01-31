@@ -10,12 +10,10 @@ use embedded_hal_one::digital::blocking::{
 };
 pub use embedded_hal_one::digital::PinState;
 
-impl From<PinState> for super::PinState {
-    fn from(state: PinState) -> Self {
-        match state {
-            PinState::Low => Self::Low,
-            PinState::High => Self::High,
-        }
+fn into_state(state: PinState) -> super::PinState {
+    match state {
+        PinState::Low => super::PinState::Low,
+        PinState::High => super::PinState::High,
     }
 }
 
@@ -93,7 +91,7 @@ impl<const P: char, const N: u8> IoPin<Self, Self> for Pin<Output<OpenDrain>, P,
         Ok(self)
     }
     fn into_output_pin(mut self, state: PinState) -> Result<Self, Self::Error> {
-        self.set_state(state.into());
+        self.set_state(into_state(state));
         Ok(self)
     }
 }
@@ -106,7 +104,7 @@ impl<const P: char, const N: u8> IoPin<Pin<Input<Floating>, P, N>, Self>
         Ok(self.into_floating_input())
     }
     fn into_output_pin(mut self, state: PinState) -> Result<Self, Self::Error> {
-        self.set_state(state.into());
+        self.set_state(into_state(state));
         Ok(self)
     }
 }
@@ -119,7 +117,7 @@ impl<const P: char, const N: u8> IoPin<Self, Pin<Output<OpenDrain>, P, N>>
         Ok(self)
     }
     fn into_output_pin(self, state: PinState) -> Result<Pin<Output<OpenDrain>, P, N>, Self::Error> {
-        Ok(self.into_open_drain_output_in_state(state.into()))
+        Ok(self.into_open_drain_output_in_state(into_state(state)))
     }
 }
 
@@ -131,7 +129,7 @@ impl<const P: char, const N: u8> IoPin<Pin<Input<Floating>, P, N>, Self>
         Ok(self.into_floating_input())
     }
     fn into_output_pin(mut self, state: PinState) -> Result<Self, Self::Error> {
-        self.set_state(state.into());
+        self.set_state(into_state(state));
         Ok(self)
     }
 }
@@ -144,7 +142,7 @@ impl<const P: char, const N: u8> IoPin<Self, Pin<Output<PushPull>, P, N>>
         Ok(self)
     }
     fn into_output_pin(self, state: PinState) -> Result<Pin<Output<PushPull>, P, N>, Self::Error> {
-        Ok(self.into_push_pull_output_in_state(state.into()))
+        Ok(self.into_push_pull_output_in_state(into_state(state)))
     }
 }
 
@@ -156,7 +154,7 @@ impl<const P: char, const N: u8> IoPin<Pin<Input<PullUp>, P, N>, Self>
         Ok(self.into_pull_up_input())
     }
     fn into_output_pin(mut self, state: PinState) -> Result<Self, Self::Error> {
-        self.set_state(state.into());
+        self.set_state(into_state(state));
         Ok(self)
     }
 }
@@ -169,7 +167,7 @@ impl<const P: char, const N: u8> IoPin<Self, Pin<Output<PushPull>, P, N>>
         Ok(self)
     }
     fn into_output_pin(self, state: PinState) -> Result<Pin<Output<PushPull>, P, N>, Self::Error> {
-        Ok(self.into_push_pull_output_in_state(state.into()))
+        Ok(self.into_push_pull_output_in_state(into_state(state)))
     }
 }
 
@@ -181,7 +179,7 @@ impl<const P: char, const N: u8> IoPin<Pin<Input<PullDown>, P, N>, Self>
         Ok(self.into_pull_down_input())
     }
     fn into_output_pin(mut self, state: PinState) -> Result<Self, Self::Error> {
-        self.set_state(state.into());
+        self.set_state(into_state(state));
         Ok(self)
     }
 }
@@ -194,7 +192,7 @@ impl<const P: char, const N: u8> IoPin<Self, Pin<Output<PushPull>, P, N>>
         Ok(self)
     }
     fn into_output_pin(self, state: PinState) -> Result<Pin<Output<PushPull>, P, N>, Self::Error> {
-        Ok(self.into_push_pull_output_in_state(state.into()))
+        Ok(self.into_push_pull_output_in_state(into_state(state)))
     }
 }
 
